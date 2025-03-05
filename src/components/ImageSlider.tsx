@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ImageSliderProps {
@@ -9,18 +9,18 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<number>(0);
 
+  const handleNextImage = useCallback(() => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]); 
+
   useEffect(() => {
     const interval = setInterval(() => {
       handleNextImage();
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
-
-  const handleNextImage = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
+  }, [handleNextImage]);
 
   const handlePrevImage = () => {
     setDirection(-1);
@@ -30,16 +30,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? "100%" : "-100%",
-      opacity: 1
+      opacity: 1,
     }),
     center: {
       x: "0%",
-      opacity: 1
+      opacity: 1,
     },
     exit: (direction: number) => ({
       x: direction < 0 ? "100%" : "-100%",
-      opacity: 1
-    })
+      opacity: 1,
+    }),
   };
 
   const swipeConfidenceThreshold = 10000;
@@ -61,7 +61,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
             exit="exit"
             transition={{
               x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
+              opacity: { duration: 0.2 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -82,9 +82,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
             key={index}
             onClick={() => setCurrentIndex(index)}
             className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-200 ease-in-out
-              ${index === currentIndex 
-                ? 'bg-white shadow-md scale-125' 
-                : 'bg-white/50 hover:bg-white/80 hover:scale-110'
+              ${
+                index === currentIndex
+                  ? 'bg-white shadow-md scale-125'
+                  : 'bg-white/50 hover:bg-white/80 hover:scale-110'
               }`}
             whileHover={{ scale: index === currentIndex ? 1.25 : 1.1 }}
             whileTap={{ scale: 0.95 }}

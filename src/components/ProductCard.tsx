@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <motion.div
-      className="bg-[#F5F7FA] rounded-2xl overflow-hidden shadow-lg border border-[#1A2B50]/10 transform transition-all duration-300 hover:shadow-xl group"
+      className="bg-[#F5F7FA] rounded-2xl overflow-hidden shadow-lg border border-[#1A2B50]/10 transform transition-all duration-300 hover:shadow-xl group flex flex-col h-full"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{
@@ -31,15 +31,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           whileHover={{ scale: 1.1 }}
         >
           <ChevronDownIcon
-            className={`h-5 w-5 transform transition-transform duration-300 ${isDetailsOpen ? 'rotate-180' : ''
-              }`}
+            className={`h-5 w-5 transform transition-transform duration-300 ${isDetailsOpen ? 'rotate-180' : ''}`}
           />
         </motion.button>
       </div>
 
-      <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+      <div className="p-4 sm:p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-[#1A2B50] tracking-tight group-hover:text-[#2A4365]">
+          <h3 className="text-base sm:text-lg md:text-xl font-mono font-bold text-[#1A2B50] tracking-tight group-hover:text-[#2A4365]">
             {product.name}
           </h3>
           <span className="text-2xl sm:text-3xl font-mono font-bold text-[#FF6B35]">
@@ -54,14 +53,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-[#1A2B50] text-sm leading-relaxed"
+              className="text-[#1A2B50] text-sm leading-relaxed flex-grow"
             >
               {product.description}
             </motion.div>
           )}
         </AnimatePresence>
 
-        <div className="flex space-x-3">
+        <div className="mt-auto flex space-x-3 pt-4">
           <motion.a
             href={`tel:${product.contact.phone}`}
             className="flex-1 flex items-center justify-center space-x-2 bg-[#1A2B50] text-white px-4 py-2 rounded-lg hover:bg-[#2A4365] transition-all duration-300"
@@ -90,7 +89,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <span className="font-mono font-semibold text-sm">Telegram</span>
           </motion.a>
         </div>
-
       </div>
     </motion.div>
   );
