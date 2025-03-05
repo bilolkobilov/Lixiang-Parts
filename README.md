@@ -53,25 +53,6 @@ npm start
 yarn start
 ```
 
-## Deployment
-
-### Vercel Deployment
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in the project directory
-3. Follow the prompts
-
-## Security Considerations
-
-- Implement proper authentication for the admin panel
-- Use environment variables for sensitive configuration
-- Regularly update dependencies
-
-## Customization
-
-- Modify color scheme in `tailwind.config.js`
-- Adjust product categories in `types/Product.ts`
-- Customize Telegram integration in `utils/telegramHelper.ts`
-
 ## Contributing
 
 1. Fork the repository
@@ -83,9 +64,3 @@ yarn start
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-## Contact
-
-Your Name - [Your Email]
-
-Project Link: [https://github.com/yourusername/lixiang-parts](https://github.com/yourusername/lixiang-parts)
